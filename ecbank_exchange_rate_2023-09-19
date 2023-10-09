@@ -1,0 +1,58 @@
+HTTP/1.1 200 OK
+Transfer-Encoding: chunked
+Cache-Control: max-age=300
+Connection: keep-alive
+Content-Type: text/xml
+Date: Tue, 19 Sep 2023 06:46:54 GMT
+Expires: Mon, 18 Sep 2023 14:05:18 GMT
+Last-Modified: Mon, 18 Sep 2023 13:55:09 GMT
+Server: myracloud
+Strict-Transport-Security: max-age=63072000; includeSubDomains
+X-Cdn: 1
+X-Frame-Options: SAMEORIGIN
+X-Xss-Protection: 1; mode=block
+
+632
+<?xml version="1.0" encoding="UTF-8"?>
+<gesmes:Envelope xmlns:gesmes="http://www.gesmes.org/xml/2002-08-01" xmlns="http://www.ecb.int/vocabulary/2002-08-01/eurofxref">
+	<gesmes:subject>Reference rates</gesmes:subject>
+	<gesmes:Sender>
+		<gesmes:name>European Central Bank</gesmes:name>
+	</gesmes:Sender>
+	<Cube>
+		<Cube time='2023-09-18'>
+			<Cube currency='USD' rate='1.0663'/>
+			<Cube currency='JPY' rate='157.44'/>
+			<Cube currency='BGN' rate='1.9558'/>
+			<Cube currency='CZK' rate='24.406'/>
+			<Cube currency='DKK' rate='7.4551'/>
+			<Cube currency='GBP' rate='0.86141'/>
+			<Cube currency='HUF' rate='384.13'/>
+			<Cube currency='PLN' rate='4.6383'/>
+			<Cube currency='RON' rate='4.9690'/>
+			<Cube currency='SEK' rate='11.9872'/>
+			<Cube currency='CHF' rate='0.9564'/>
+			<Cube currency='ISK' rate='145.10'/>
+			<Cube currency='NOK' rate='11.5688'/>
+			<Cube currency='TRY' rate='28.8108'/>
+			<Cube currency='AUD' rate='1.6575'/>
+			<Cube currency='BRL' rate='5.1905'/>
+			<Cube currency='CAD' rate='1.4400'/>
+			<Cube currency='CNY' rate='7.7796'/>
+			<Cube currency='HKD' rate='8.3386'/>
+			<Cube currency='IDR' rate='16389.03'/>
+			<Cube currency='ILS' rate='4.0810'/>
+			<Cube currency='INR' rate='88.8295'/>
+			<Cube currency='KRW' rate='1413.49'/>
+			<Cube currency='MXN' rate='18.2252'/>
+			<Cube currency='MYR' rate='4.9999'/>
+			<Cube currency='NZD' rate='1.8067'/>
+			<Cube currency='PHP' rate='60.534'/>
+			<Cube currency='SGD' rate='1.4551'/>
+			<Cube currency='THB' rate='38.072'/>
+			<Cube currency='ZAR' rate='20.2948'/>
+		</Cube>
+	</Cube>
+</gesmes:Envelope>
+0
+
