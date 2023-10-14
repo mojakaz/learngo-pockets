@@ -1,7 +1,7 @@
-package gordle_test
+package gordle
 
 import (
-	"learngo-pockets/gordle/gordle"
+	"errors"
 	"testing"
 )
 
@@ -19,16 +19,16 @@ func TestReadCorpus(t *testing.T) {
 		"empty corpus": {
 			file:   "../corpus/empty.txt",
 			length: 0,
-			err:    gordle.ErrCorpusIsEmpty,
+			err:    ErrCorpusIsEmpty,
 		},
 	}
 	for name, tc := range tt {
 		t.Run(name, func(t *testing.T) {
-			words, err := gordle.ReadCorpus(tc.file)
+			words, err := ReadCorpus(tc.file)
 			if len(words) != tc.length {
 				t.Errorf("different words length: got %d, want %d", len(words), tc.length)
 			}
-			if err != tc.err {
+			if !errors.Is(err, tc.err) {
 				t.Errorf("different error: got %v, want %v", err, tc.err)
 			}
 		})
