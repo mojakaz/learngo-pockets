@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	err := http.ListenAndServe(":8080", handlers.Mux())
+	err := http.ListenAndServe(":8080", handlers.NewRouter())
 	if err != nil {
 		log.Fatal(err)
 	}

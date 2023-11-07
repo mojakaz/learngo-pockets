@@ -3,16 +3,17 @@ package api
 import "net/http"
 
 const (
-	// POST /games - creates a new game and returns its ID.
-	NewGameRoute  = "/games"
-	NewGameMethod = http.MethodPost
+	NewGameRoute   = "/games"
+	NewGameMethod  = http.MethodPost
+	GameID         = "id"
+	GetStatusRoute = "/games/{" + GameID + "}"
 )
 
 type GameResponse struct {
-	Id           string  `json:"id"`
-	AttemptsLeft int     `json:"attempts_left"`
+	ID           string  `json:"id"`
+	AttemptsLeft byte    `json:"attempts_left"`
 	Guesses      []Guess `json:"guesses"`
-	WordLength   int     `json:"word_length"`
+	WordLength   byte    `json:"word_length"`
 	Solution     string  `json:"solution,omitempty"`
 	Status       string  `json:"status"`
 }
