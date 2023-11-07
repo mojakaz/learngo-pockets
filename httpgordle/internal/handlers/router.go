@@ -4,6 +4,7 @@ import (
 	"github.com/go-chi/chi/v5"
 	"learngo-pockets/httpgordle/internal/api"
 	"learngo-pockets/httpgordle/internal/handlers/getstatus"
+	"learngo-pockets/httpgordle/internal/handlers/guess"
 	"learngo-pockets/httpgordle/internal/handlers/newgame"
 	"net/http"
 )
@@ -19,6 +20,7 @@ func NewRouter() chi.Router {
 
 	r.Post(api.NewGameRoute, newgame.Handle)
 	r.Get(api.GetStatusRoute, getstatus.Handle)
+	r.Put(api.GuessRoute, guess.Handle)
 
 	return r
 }
