@@ -6,12 +6,14 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"learngo-pockets/httpgordle/internal/api"
+	"learngo-pockets/httpgordle/internal/session"
 	"net/http"
 	"net/http/httptest"
 	"testing"
 )
 
-func TestHandle(t *testing.T) {
+func TestHandler(t *testing.T) {
+	handleFunc := Handler(gameFinderStab{})
 	req, err := http.NewRequest(http.MethodPost, "/games/", nil)
 	require.NoError(t, err)
 
@@ -22,8 +24,16 @@ func TestHandle(t *testing.T) {
 
 	recorder := httptest.NewRecorder()
 
-	Handle(recorder, req)
+	handleFunc(recorder, req)
 
 	assert.Equal(t, http.StatusOK, recorder.Code)
-	assert.JSONEq(t, `{"id":"123456","attempts_left":0,"guesses":[],"word_length":0,"status":""}`, recorder.Body.String())
+	assert.JSONEq(t, `{"id":"123456","attempts_left":0,"guesses":null,"word_length":0,"status":""}`, recorder.Body.String())
+}
+
+type gameFinderStab struct {
+	err error
+}
+
+func (g gameFinderStab) Find(gameID session.GameID) (session.Game, error) {
+	return session.Game{}, g.err
 }

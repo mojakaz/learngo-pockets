@@ -6,21 +6,15 @@ import (
 	"learngo-pockets/httpgordle/internal/handlers/getstatus"
 	"learngo-pockets/httpgordle/internal/handlers/guess"
 	"learngo-pockets/httpgordle/internal/handlers/newgame"
-	"net/http"
+	"learngo-pockets/httpgordle/internal/repository"
 )
 
-func Mux() *http.ServeMux {
-	mux := http.NewServeMux()
-	mux.HandleFunc(api.NewGameRoute, newgame.Handle)
-	return mux
-}
-
-func NewRouter() chi.Router {
+func NewRouter(db *repository.GameRepository) chi.Router {
 	r := chi.NewRouter()
 
-	r.Post(api.NewGameRoute, newgame.Handle)
-	r.Get(api.GetStatusRoute, getstatus.Handle)
-	r.Put(api.GuessRoute, guess.Handle)
+	r.Post(api.NewGameRoute, newgame.Handler(db))
+	r.Get(api.GetStatusRoute, getstatus.Handler(db))
+	r.Put(api.GuessRoute, guess.Handler(db))
 
 	return r
 }
