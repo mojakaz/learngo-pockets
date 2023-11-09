@@ -37,7 +37,7 @@ func TestGameRepository_Add_Failure(t *testing.T) {
 		"key exists": {
 			gr: New(),
 			game: session.Game{
-				ID:           "b",
+				ID:           "a",
 				AttemptsLeft: 2,
 				Guesses:      make([]session.Guess, 0),
 				Status:       "Playing",
