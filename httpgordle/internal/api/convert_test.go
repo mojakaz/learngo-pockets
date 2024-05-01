@@ -2,6 +2,7 @@ package api
 
 import (
 	"github.com/stretchr/testify/assert"
+	"learngo-pockets/httpgordle/internal/gordle"
 	"learngo-pockets/httpgordle/internal/session"
 	"testing"
 )
@@ -15,15 +16,17 @@ func TestToGameResponse(t *testing.T) {
 		"new": {
 			game: session.Game{
 				ID:           "a",
+				Gordle:       gordle.Game{},
 				AttemptsLeft: 5,
 				Guesses:      nil,
 				Status:       "Playing",
+				Solution:     "hello",
 			},
 			expected: GameResponse{
 				ID:           "a",
 				AttemptsLeft: 5,
-				Guesses:      []Guess{},
-				WordLength:   0,
+				Guesses:      []session.Guess{},
+				WordLength:   5,
 				Solution:     "",
 				Status:       "Playing",
 			},
@@ -32,25 +35,29 @@ func TestToGameResponse(t *testing.T) {
 		"two guesses": {
 			game: session.Game{
 				ID:           "b",
+				Gordle:       gordle.Game{},
 				AttemptsLeft: 3,
-				Guesses: []session.Guess{{Word: "abc", Feedback: ""}, {
+				Guesses: []session.Guess{{
+					Word:     "abc",
+					Feedback: "",
+				}, {
 					Word:     "def",
 					Feedback: "",
 				}},
-				Status: "Playing",
+				Status:   "Playing",
+				Solution: "xyz",
 			},
 			expected: GameResponse{
 				ID:           "b",
 				AttemptsLeft: 3,
-				Guesses: []Guess{{
+				Guesses: []session.Guess{{
 					Word:     "abc",
 					Feedback: "",
-				},
-					{
-						Word:     "def",
-						Feedback: "",
-					}},
-				WordLength: 0,
+				}, {
+					Word:     "def",
+					Feedback: "",
+				}},
+				WordLength: 3,
 				Solution:   "",
 				Status:     "Playing",
 			},
@@ -59,16 +66,18 @@ func TestToGameResponse(t *testing.T) {
 		"zero attempts left": {
 			game: session.Game{
 				ID:           "c",
+				Gordle:       gordle.Game{},
 				AttemptsLeft: 0,
 				Guesses:      nil,
 				Status:       "LOST",
+				Solution:     "NIGHT",
 			},
 			expected: GameResponse{
 				ID:           "c",
 				AttemptsLeft: 0,
-				Guesses:      make([]Guess, 0),
-				WordLength:   0,
-				Solution:     "",
+				Guesses:      make([]session.Guess, 0),
+				WordLength:   5,
+				Solution:     "NIGHT",
 				Status:       "LOST",
 			},
 			err: nil,

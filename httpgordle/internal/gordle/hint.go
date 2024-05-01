@@ -26,11 +26,11 @@ func (h hint) String() string {
 	}
 }
 
-// feedback is a list of hints, one per character of the word.
-type feedback []hint
+// Feedback is a list of hints, one per character of the word.
+type Feedback []hint
 
 // String implements the Stringer interface for a slice of hints.
-func (fb feedback) String() string {
+func (fb Feedback) String() string {
 	sb := strings.Builder{}
 	for _, h := range fb {
 		sb.WriteString(h.String())
@@ -38,22 +38,22 @@ func (fb feedback) String() string {
 	return sb.String()
 }
 
-// StringConcat returns hints concatenated which is inefficient
-func (fb feedback) StringConcat() string {
-	var ret string
-	for _, h := range fb {
-		ret += h.String()
-	}
-	return ret
-}
-
 // Equal determines equality of two feedbacks.
-func (fb feedback) Equal(other feedback) bool {
+func (fb Feedback) Equal(other Feedback) bool {
 	if len(fb) != len(other) {
 		return false
 	}
 	for index, value := range fb {
 		if value != other[index] {
+			return false
+		}
+	}
+	return true
+}
+
+func (fb Feedback) GameWon() bool {
+	for _, value := range fb {
+		if value != correctPosition {
 			return false
 		}
 	}

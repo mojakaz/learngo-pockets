@@ -7,6 +7,7 @@ import (
 )
 
 func TestGameRepository_Add_Success(t *testing.T) {
+	t.Parallel()
 	tt := map[string]struct {
 		gr   *GameRepository
 		game session.Game
@@ -30,6 +31,7 @@ func TestGameRepository_Add_Success(t *testing.T) {
 }
 
 func TestGameRepository_Add_Failure(t *testing.T) {
+	t.Parallel()
 	tt := map[string]struct {
 		gr   *GameRepository
 		game session.Game
@@ -55,6 +57,7 @@ func TestGameRepository_Add_Failure(t *testing.T) {
 }
 
 func TestGameRepository_Find_Success(t *testing.T) {
+	t.Parallel()
 	tt := map[string]struct {
 		gr     *GameRepository
 		gameID session.GameID
@@ -74,6 +77,7 @@ func TestGameRepository_Find_Success(t *testing.T) {
 }
 
 func TestGameRepository_Find_Failure(t *testing.T) {
+	t.Parallel()
 	tt := map[string]struct {
 		gr     *GameRepository
 		gameID session.GameID
@@ -92,6 +96,7 @@ func TestGameRepository_Find_Failure(t *testing.T) {
 }
 
 func TestGameRepository_Update_Success(t *testing.T) {
+	t.Parallel()
 	tt := map[string]struct {
 		gr   *GameRepository
 		game session.Game
@@ -116,6 +121,7 @@ func TestGameRepository_Update_Success(t *testing.T) {
 }
 
 func TestGameRepository_Update_Failure(t *testing.T) {
+	t.Parallel()
 	tt := map[string]struct {
 		gr   *GameRepository
 		game session.Game

@@ -7,9 +7,10 @@ func ToGameResponse(g session.Game) GameResponse {
 	apiGame := GameResponse{
 		ID:           string(g.ID),
 		AttemptsLeft: g.AttemptsLeft,
-		Guesses:      make([]Guess, len(g.Guesses)),
+		Guesses:      make([]session.Guess, len(g.Guesses)),
 		Status:       string(g.Status),
-		// TODO WordLength
+		Solution:     g.Solution,
+		WordLength:   byte(len(g.Solution)),
 	}
 
 	for index := 0; index < len(g.Guesses); index++ {
@@ -17,8 +18,8 @@ func ToGameResponse(g session.Game) GameResponse {
 		apiGame.Guesses[index].Feedback = g.Guesses[index].Feedback
 	}
 
-	if g.AttemptsLeft == 0 {
-		apiGame.Solution = "" // TODO solution
+	if g.AttemptsLeft != 0 {
+		apiGame.Solution = ""
 	}
 
 	return apiGame

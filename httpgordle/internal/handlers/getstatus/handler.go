@@ -2,8 +2,10 @@ package getstatus
 
 import (
 	"encoding/json"
+	"errors"
 	"github.com/go-chi/chi/v5"
 	"learngo-pockets/httpgordle/internal/api"
+	"learngo-pockets/httpgordle/internal/repository"
 	"learngo-pockets/httpgordle/internal/session"
 	"log"
 	"net/http"
@@ -21,12 +23,22 @@ func Handler(db gameFinder) http.HandlerFunc {
 			return
 		}
 		log.Printf("retrieve status of game with id: %v", id)
-
-		apiGame := api.GameResponse{ID: id}
-		err := json.NewEncoder(w).Encode(apiGame)
+		game, err := db.Find(session.GameID(id))
 		if err != nil {
-			// The header has already been set. Nothing much we can do here.
-			log.Printf("failed to write response: %s", err)
+			if errors.Is(err, repository.ErrGameNotFound) {
+				http.Error(w, "this game does not exist", http.StatusNotFound)
+				return
+			}
+
+			log.Printf("cannot fetch game %s: %s", id, err)
+			http.Error(w, "failed to fetch game", http.StatusInternalServerError)
+			return
+		}
+		apiGame := api.ToGameResponse(game)
+		err = json.NewEncoder(w).Encode(apiGame)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusBadRequest)
+			return
 		}
 	}
 }

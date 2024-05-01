@@ -69,3 +69,18 @@ func (gr *GameRepository) Update(game session.Game) error {
 	gr.storage[game.ID] = game
 	return nil
 }
+
+// Delete deletes existing key value pair
+func (gr *GameRepository) Delete(gameID session.GameID) error {
+	log.Println("Deleting a game...")
+	_, err := gr.Find(gameID)
+	if err != nil {
+		return err
+	}
+	// Lock the reading and writing of the game.
+	gr.mutex.Lock()
+	defer gr.mutex.Unlock()
+
+	delete(gr.storage, gameID)
+	return err
+}

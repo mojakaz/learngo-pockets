@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package habits;
+option go_package = "learngo-pockets/habits/api";
+
+// Habit represents an objective one wants to complete a given number of times per week.
+message Habit {
+  // Name of the habit, cannot be empty
+  string name = 1;
+  // Frequency, expressed in times per week.
+  int32 weekly_frequency = 2;
+}

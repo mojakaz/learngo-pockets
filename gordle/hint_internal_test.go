@@ -32,3 +32,17 @@ func TestFeedback_String(t *testing.T) {
 		})
 	}
 }
+
+func BenchmarkFeedback_StringConcat(b *testing.B) {
+	fb := feedback{absentCharacter, wrongPosition, correctPosition, correctPosition, absentCharacter}
+	for n := 0; n < b.N; n++ {
+		_ = fb.StringConcat()
+	}
+}
+
+func BenchmarkFeedback_String(b *testing.B) {
+	fb := feedback{absentCharacter, wrongPosition, correctPosition, correctPosition, absentCharacter}
+	for n := 0; n < b.N; n++ {
+		_ = fb.String()
+	}
+}
