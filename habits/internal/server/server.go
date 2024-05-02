@@ -1,9 +1,11 @@
 package server
 
 import (
+	"context"
 	"fmt"
 	"google.golang.org/grpc"
 	"learngo-pockets/habits/api"
+	"learngo-pockets/habits/internal/habit"
 	"net"
 	"strconv"
 )
@@ -12,12 +14,19 @@ import (
 type Server struct {
 	api.UnimplementedHabitsServer
 	lgr Logger
+	db  Repository
 }
 
-// New returns a Server that can ListenAndServe.
-func New(lgr Logger) *Server {
+type Repository interface {
+	Add(_ context.Context, habit habit.Habit) error
+	ListAll(_ context.Context) ([]habit.Habit, error)
+}
+
+// New returns a Server that can Listen.
+func New(repo Repository, lgr Logger) *Server {
 	return &Server{
 		lgr: lgr,
+		db:  repo,
 	}
 }
 

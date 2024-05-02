@@ -20,7 +20,7 @@ func TestGameRepository_Add_Success(t *testing.T) {
 				Guesses:      []session.Guess{},
 				Status:       "Playing",
 			},
-		},
+		}, 
 	}
 	for name, tc := range tt {
 		t.Run(name, func(t *testing.T) {
