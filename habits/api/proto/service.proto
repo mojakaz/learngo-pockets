@@ -8,6 +8,12 @@ import "habit.proto";
 service Habits {
   // CreateHabit is the endpoint that registers a habit.
   rpc CreateHabit(CreateHabitRequest) returns (CreateHabitResponse);
+
+  // ListHabits is the endpoint that returns all habits.
+  rpc ListHabits(ListHabitsRequest) returns (ListHabitsResponse);
+
+  // TickHabit is the endpoint to tick a habit.
+  rpc TickHabit(TickHabitRequest) returns (TickHabitResponse);
 }
 
 // CreateHabitRequest is the message sent to create a habit.
@@ -21,4 +27,24 @@ message CreateHabitRequest {
 // CreateHabitResponse is the response of the create endpoint.
 message CreateHabitResponse {
   Habit habit = 1;
+}
+
+// ListHabitsRequest is the request to list all the habits saved.
+message ListHabitsRequest {
+}
+
+// ListHabitsResponse is the response with all the saved habits.
+message ListHabitsResponse {
+  repeated Habit habits = 1;
+}
+
+// TickHabitRequest holds the identifier of a habit to tick it.
+message TickHabitRequest {
+  // The identifier of the habit we want to tick.
+  string habit_id = 1;
+}
+
+// TickHabitRequest is the response to TickHabit endpoint.
+// Currently empty but open to grow.
+message TickHabitResponse {
 }

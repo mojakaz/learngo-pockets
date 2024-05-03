@@ -1,6 +1,8 @@
 package habit
 
-import "fmt"
+import (
+	"fmt"
+)
 
 // InvalidInputError is returned when user-input data is invalid.
 type InvalidInputError struct {

@@ -5,6 +5,7 @@ import (
 	"context"
 	"fmt"
 	"learngo-pockets/habits/internal/habit"
+	"sort"
 	"sync"
 )
 
@@ -37,12 +38,23 @@ func (hr *HabitRepository) Add(_ context.Context, habit habit.Habit) error {
 	return nil
 }
 
-func (hr *HabitRepository) ListAll(_ context.Context) ([]habit.Habit, error) {
-	hr.mutex.RLock()
-	defer hr.mutex.RUnlock()
-	var habits []habit.Habit
+// FindAll returns all habits sorted by creation time.
+func (hr *HabitRepository) FindAll(_ context.Context) ([]habit.Habit, error) {
+	hr.lgr.Logf("Listing habits, sorted by creation time...")
+
+	// Lock the reading and the writing of the habits.
+	hr.mutex.Lock()
+	defer hr.mutex.Unlock()
+
+	habits := make([]habit.Habit, 0)
 	for _, h := range hr.storage {
 		habits = append(habits, h)
 	}
+
+	// Ensure the output is deterministic by sorting the habits.
+	sort.Slice(habits, func(i, j int) bool {
+		return habits[i].CreationTime.Before(habits[j].CreationTime)
+	})
+
 	return habits, nil
 }

@@ -126,6 +126,182 @@ func (x *CreateHabitResponse) GetHabit() *Habit {
 	return nil
 }
 
+// ListHabitsRequest is the request to list all the habits saved.
+type ListHabitsRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *ListHabitsRequest) Reset() {
+	*x = ListHabitsRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_service_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ListHabitsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListHabitsRequest) ProtoMessage() {}
+
+func (x *ListHabitsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_service_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListHabitsRequest.ProtoReflect.Descriptor instead.
+func (*ListHabitsRequest) Descriptor() ([]byte, []int) {
+	return file_service_proto_rawDescGZIP(), []int{2}
+}
+
+// ListHabitsResponse is the response with all the saved habits.
+type ListHabitsResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Habits []*Habit `protobuf:"bytes,1,rep,name=habits,proto3" json:"habits,omitempty"`
+}
+
+func (x *ListHabitsResponse) Reset() {
+	*x = ListHabitsResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_service_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ListHabitsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListHabitsResponse) ProtoMessage() {}
+
+func (x *ListHabitsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_service_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListHabitsResponse.ProtoReflect.Descriptor instead.
+func (*ListHabitsResponse) Descriptor() ([]byte, []int) {
+	return file_service_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *ListHabitsResponse) GetHabits() []*Habit {
+	if x != nil {
+		return x.Habits
+	}
+	return nil
+}
+
+// TickHabitRequest holds the identifier of a habit to tick it.
+type TickHabitRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// The identifier of the habit we want to tick.
+	HabitId string `protobuf:"bytes,1,opt,name=habit_id,json=habitId,proto3" json:"habit_id,omitempty"`
+}
+
+func (x *TickHabitRequest) Reset() {
+	*x = TickHabitRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_service_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *TickHabitRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TickHabitRequest) ProtoMessage() {}
+
+func (x *TickHabitRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_service_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TickHabitRequest.ProtoReflect.Descriptor instead.
+func (*TickHabitRequest) Descriptor() ([]byte, []int) {
+	return file_service_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *TickHabitRequest) GetHabitId() string {
+	if x != nil {
+		return x.HabitId
+	}
+	return ""
+}
+
+// TickHabitRequest is the response to TickHabit endpoint.
+// Currently empty but open to grow.
+type TickHabitResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *TickHabitResponse) Reset() {
+	*x = TickHabitResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_service_proto_msgTypes[5]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *TickHabitResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TickHabitResponse) ProtoMessage() {}
+
+func (x *TickHabitResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_service_proto_msgTypes[5]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TickHabitResponse.ProtoReflect.Descriptor instead.
+func (*TickHabitResponse) Descriptor() ([]byte, []int) {
+	return file_service_proto_rawDescGZIP(), []int{5}
+}
+
 var File_service_proto protoreflect.FileDescriptor
 
 var file_service_proto_rawDesc = []byte{
@@ -141,15 +317,33 @@ var file_service_proto_rawDesc = []byte{
 	0x6e, 0x63, 0x79, 0x22, 0x3a, 0x0a, 0x13, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x48, 0x61, 0x62,
 	0x69, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x23, 0x0a, 0x05, 0x68, 0x61,
 	0x62, 0x69, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0d, 0x2e, 0x68, 0x61, 0x62, 0x69,
-	0x74, 0x73, 0x2e, 0x48, 0x61, 0x62, 0x69, 0x74, 0x52, 0x05, 0x68, 0x61, 0x62, 0x69, 0x74, 0x32,
-	0x50, 0x0a, 0x06, 0x48, 0x61, 0x62, 0x69, 0x74, 0x73, 0x12, 0x46, 0x0a, 0x0b, 0x43, 0x72, 0x65,
-	0x61, 0x74, 0x65, 0x48, 0x61, 0x62, 0x69, 0x74, 0x12, 0x1a, 0x2e, 0x68, 0x61, 0x62, 0x69, 0x74,
-	0x73, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x48, 0x61, 0x62, 0x69, 0x74, 0x52, 0x65, 0x71,
-	0x75, 0x65, 0x73, 0x74, 0x1a, 0x1b, 0x2e, 0x68, 0x61, 0x62, 0x69, 0x74, 0x73, 0x2e, 0x43, 0x72,
-	0x65, 0x61, 0x74, 0x65, 0x48, 0x61, 0x62, 0x69, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
-	0x65, 0x42, 0x1c, 0x5a, 0x1a, 0x6c, 0x65, 0x61, 0x72, 0x6e, 0x67, 0x6f, 0x2d, 0x70, 0x6f, 0x63,
-	0x6b, 0x65, 0x74, 0x73, 0x2f, 0x68, 0x61, 0x62, 0x69, 0x74, 0x73, 0x2f, 0x61, 0x70, 0x69, 0x62,
-	0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x74, 0x73, 0x2e, 0x48, 0x61, 0x62, 0x69, 0x74, 0x52, 0x05, 0x68, 0x61, 0x62, 0x69, 0x74, 0x22,
+	0x13, 0x0a, 0x11, 0x4c, 0x69, 0x73, 0x74, 0x48, 0x61, 0x62, 0x69, 0x74, 0x73, 0x52, 0x65, 0x71,
+	0x75, 0x65, 0x73, 0x74, 0x22, 0x3b, 0x0a, 0x12, 0x4c, 0x69, 0x73, 0x74, 0x48, 0x61, 0x62, 0x69,
+	0x74, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x25, 0x0a, 0x06, 0x68, 0x61,
+	0x62, 0x69, 0x74, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x0d, 0x2e, 0x68, 0x61, 0x62,
+	0x69, 0x74, 0x73, 0x2e, 0x48, 0x61, 0x62, 0x69, 0x74, 0x52, 0x06, 0x68, 0x61, 0x62, 0x69, 0x74,
+	0x73, 0x22, 0x2d, 0x0a, 0x10, 0x54, 0x69, 0x63, 0x6b, 0x48, 0x61, 0x62, 0x69, 0x74, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x19, 0x0a, 0x08, 0x68, 0x61, 0x62, 0x69, 0x74, 0x5f, 0x69,
+	0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x68, 0x61, 0x62, 0x69, 0x74, 0x49, 0x64,
+	0x22, 0x13, 0x0a, 0x11, 0x54, 0x69, 0x63, 0x6b, 0x48, 0x61, 0x62, 0x69, 0x74, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x32, 0xd7, 0x01, 0x0a, 0x06, 0x48, 0x61, 0x62, 0x69, 0x74, 0x73,
+	0x12, 0x46, 0x0a, 0x0b, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x48, 0x61, 0x62, 0x69, 0x74, 0x12,
+	0x1a, 0x2e, 0x68, 0x61, 0x62, 0x69, 0x74, 0x73, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x48,
+	0x61, 0x62, 0x69, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1b, 0x2e, 0x68, 0x61,
+	0x62, 0x69, 0x74, 0x73, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x48, 0x61, 0x62, 0x69, 0x74,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x43, 0x0a, 0x0a, 0x4c, 0x69, 0x73, 0x74,
+	0x48, 0x61, 0x62, 0x69, 0x74, 0x73, 0x12, 0x19, 0x2e, 0x68, 0x61, 0x62, 0x69, 0x74, 0x73, 0x2e,
+	0x4c, 0x69, 0x73, 0x74, 0x48, 0x61, 0x62, 0x69, 0x74, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x1a, 0x1a, 0x2e, 0x68, 0x61, 0x62, 0x69, 0x74, 0x73, 0x2e, 0x4c, 0x69, 0x73, 0x74, 0x48,
+	0x61, 0x62, 0x69, 0x74, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x40, 0x0a,
+	0x09, 0x54, 0x69, 0x63, 0x6b, 0x48, 0x61, 0x62, 0x69, 0x74, 0x12, 0x18, 0x2e, 0x68, 0x61, 0x62,
+	0x69, 0x74, 0x73, 0x2e, 0x54, 0x69, 0x63, 0x6b, 0x48, 0x61, 0x62, 0x69, 0x74, 0x52, 0x65, 0x71,
+	0x75, 0x65, 0x73, 0x74, 0x1a, 0x19, 0x2e, 0x68, 0x61, 0x62, 0x69, 0x74, 0x73, 0x2e, 0x54, 0x69,
+	0x63, 0x6b, 0x48, 0x61, 0x62, 0x69, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x42,
+	0x1c, 0x5a, 0x1a, 0x6c, 0x65, 0x61, 0x72, 0x6e, 0x67, 0x6f, 0x2d, 0x70, 0x6f, 0x63, 0x6b, 0x65,
+	0x74, 0x73, 0x2f, 0x68, 0x61, 0x62, 0x69, 0x74, 0x73, 0x2f, 0x61, 0x70, 0x69, 0x62, 0x06, 0x70,
+	0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -164,21 +358,30 @@ func file_service_proto_rawDescGZIP() []byte {
 	return file_service_proto_rawDescData
 }
 
-var file_service_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_service_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_service_proto_goTypes = []interface{}{
 	(*CreateHabitRequest)(nil),  // 0: habits.CreateHabitRequest
 	(*CreateHabitResponse)(nil), // 1: habits.CreateHabitResponse
-	(*Habit)(nil),               // 2: habits.Habit
+	(*ListHabitsRequest)(nil),   // 2: habits.ListHabitsRequest
+	(*ListHabitsResponse)(nil),  // 3: habits.ListHabitsResponse
+	(*TickHabitRequest)(nil),    // 4: habits.TickHabitRequest
+	(*TickHabitResponse)(nil),   // 5: habits.TickHabitResponse
+	(*Habit)(nil),               // 6: habits.Habit
 }
 var file_service_proto_depIdxs = []int32{
-	2, // 0: habits.CreateHabitResponse.habit:type_name -> habits.Habit
-	0, // 1: habits.Habits.CreateHabit:input_type -> habits.CreateHabitRequest
-	1, // 2: habits.Habits.CreateHabit:output_type -> habits.CreateHabitResponse
-	2, // [2:3] is the sub-list for method output_type
-	1, // [1:2] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	6, // 0: habits.CreateHabitResponse.habit:type_name -> habits.Habit
+	6, // 1: habits.ListHabitsResponse.habits:type_name -> habits.Habit
+	0, // 2: habits.Habits.CreateHabit:input_type -> habits.CreateHabitRequest
+	2, // 3: habits.Habits.ListHabits:input_type -> habits.ListHabitsRequest
+	4, // 4: habits.Habits.TickHabit:input_type -> habits.TickHabitRequest
+	1, // 5: habits.Habits.CreateHabit:output_type -> habits.CreateHabitResponse
+	3, // 6: habits.Habits.ListHabits:output_type -> habits.ListHabitsResponse
+	5, // 7: habits.Habits.TickHabit:output_type -> habits.TickHabitResponse
+	5, // [5:8] is the sub-list for method output_type
+	2, // [2:5] is the sub-list for method input_type
+	2, // [2:2] is the sub-list for extension type_name
+	2, // [2:2] is the sub-list for extension extendee
+	0, // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_service_proto_init() }
@@ -212,6 +415,54 @@ func file_service_proto_init() {
 				return nil
 			}
 		}
+		file_service_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ListHabitsRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_service_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ListHabitsResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_service_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*TickHabitRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_service_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*TickHabitResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	file_service_proto_msgTypes[0].OneofWrappers = []interface{}{}
 	type x struct{}
@@ -220,7 +471,7 @@ func file_service_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_service_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

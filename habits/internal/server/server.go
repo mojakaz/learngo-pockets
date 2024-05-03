@@ -19,7 +19,7 @@ type Server struct {
 
 type Repository interface {
 	Add(_ context.Context, habit habit.Habit) error
-	ListAll(_ context.Context) ([]habit.Habit, error)
+	FindAll(_ context.Context) ([]habit.Habit, error)
 }
 
 // New returns a Server that can Listen.

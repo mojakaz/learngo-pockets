@@ -59,7 +59,7 @@ func TestHabitRepository_Add_Fail(t *testing.T) {
 	}
 }
 
-func TestHabitRepository_ListAll(t *testing.T) {
+func TestHabitRepository_FindAll(t *testing.T) {
 	t.Parallel()
 	tt := map[string]struct {
 		hr    *HabitRepository
@@ -77,8 +77,10 @@ func TestHabitRepository_ListAll(t *testing.T) {
 	}
 	for name, tc := range tt {
 		t.Run(name, func(t *testing.T) {
-			_, err := tc.hr.ListAll(context.Background())
+			tc.hr.storage[tc.habit.ID] = tc.habit
+			got, err := tc.hr.FindAll(context.Background())
 			assert.NoError(t, err, "assume no error but got an error %w", err)
+			assert.Equal(t, []habit.Habit{tc.habit}, got, "assume %v matches %v", tc.habit, got)
 		})
 	}
 }

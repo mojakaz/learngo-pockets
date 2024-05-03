@@ -32,6 +32,7 @@ func validateAndCompleteHabit(h Habit) (Habit, error) {
 	return h, nil
 }
 
+//go:generate minimock -i habitCreator -s "_mock.go" -o "mocks"
 type habitCreator interface {
 	Add(ctx context.Context, habit Habit) error
 }
@@ -43,7 +44,9 @@ func Create(ctx context.Context, db habitCreator, h Habit) (Habit, error) {
 		return Habit{}, err
 	}
 
-	err = db.Add(ctx, h)
+	dbCtx, cancel := context.WithTimeout(ctx, time.Second)
+	defer cancel()
+	err = db.Add(dbCtx, h)
 	if err != nil {
 		return Habit{}, fmt.Errorf("cannot save habit: %w", err)
 	}
