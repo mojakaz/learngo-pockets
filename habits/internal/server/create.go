@@ -35,6 +35,7 @@ func (s *Server) CreateHabit(ctx context.Context, request *api.CreateHabitReques
 
 	return &api.CreateHabitResponse{
 		Habit: &api.Habit{
+			Id:              string(createdHabit.ID),
 			Name:            string(createdHabit.Name),
 			WeeklyFrequency: int32(createdHabit.WeeklyFrequency),
 		},

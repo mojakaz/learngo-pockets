@@ -8,6 +8,7 @@ import (
 	"learngo-pockets/habits/internal/habit"
 	"net"
 	"strconv"
+	"time"
 )
 
 // Server is the implementation of the gRPC server.
@@ -20,6 +21,9 @@ type Server struct {
 type Repository interface {
 	Add(_ context.Context, habit habit.Habit) error
 	FindAll(_ context.Context) ([]habit.Habit, error)
+	Find(ctx context.Context, id habit.ID) (habit.Habit, error)
+	AddTick(ctx context.Context, id habit.ID, t time.Time) error
+	FindTick(ctx context.Context, id habit.ID, t time.Time) ([]time.Time, error)
 }
 
 // New returns a Server that can Listen.

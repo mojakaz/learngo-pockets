@@ -44,25 +44,49 @@ func TestIntegration(t *testing.T) {
 	require.NoError(t, err)
 
 	// add 2 habits
-	addHabit(t, habitsCli, nil, "walk in the forest")
-	addHabit(t, habitsCli, ptr(3), "read a few pages")
+	idWalk := addHabit(t, habitsCli, nil, "walk in the forest")
+	idRead := addHabit(t, habitsCli, ptr(3), "read a few pages")
 	addHabitWithError(t, habitsCli, ptr(5), "        ", codes.InvalidArgument)
 
 	// check that the 2 habits are present
 	listHabitsMatches(t, habitsCli, []*api.Habit{
 		{
-			Id:              "",
+			Id:              idWalk,
 			Name:            "walk in the forest",
 			WeeklyFrequency: 1,
 		},
 		{
-			Id:              "",
+			Id:              idRead,
 			Name:            "read a few pages",
 			WeeklyFrequency: 3,
 		},
 	})
 
-	// ...
+	// add 2 ticks for Walk habit
+	tickHabit(t, habitsCli, idWalk)
+	tickHabit(t, habitsCli, idWalk)
+
+	// add 1 tick for Read habit
+	tickHabit(t, habitsCli, idRead)
+
+	// check that the right number of ticks are present
+	getHabitStatusMatchesNoTimestamp(t, habitsCli, idWalk, &api.GetHabitStatusResponse{
+		Habit: &api.Habit{
+			Id:              idWalk,
+			Name:            "walk in the forest",
+			WeeklyFrequency: 1,
+		},
+		TicksCount: 2,
+	})
+
+	getHabitStatusMatchesNoTimestamp(t, habitsCli, idRead, &api.GetHabitStatusResponse{
+		Habit: &api.Habit{
+			Id:              idRead,
+			Name:            "read a few pages",
+			WeeklyFrequency: 3,
+		},
+		TicksCount: 1,
+	})
 }
 
 func newServer(t *testing.T) *grpc.Server {
@@ -87,11 +111,6 @@ func newClient(t *testing.T, serverAddress string) (api.HabitsClient, error) {
 func listHabitsMatches(t *testing.T, habitsCli api.HabitsClient, expected []*api.Habit) {
 	list, err := habitsCli.ListHabits(context.Background(), &api.ListHabitsRequest{})
 	require.NoError(t, err)
-
-	for i := range list.Habits {
-		assert.NotEqual(t, "", list.Habits[i].Id)
-		list.Habits[i].Id = ""
-	}
 	assert.Equal(t, expected, list.Habits)
 }
 
@@ -99,12 +118,14 @@ func ptr(i int32) *int32 {
 	return &i
 }
 
-func addHabit(t *testing.T, habitsCli api.HabitsClient, freq *int32, name string) {
-	_, err := habitsCli.CreateHabit(context.Background(), &api.CreateHabitRequest{
+func addHabit(t *testing.T, habitsCli api.HabitsClient, freq *int32, name string) string {
+	resp, err := habitsCli.CreateHabit(context.Background(), &api.CreateHabitRequest{
 		Name:            name,
 		WeeklyFrequency: freq,
 	})
-	assert.NoError(t, err)
+	require.NoError(t, err)
+
+	return resp.Habit.Id
 }
 
 func addHabitWithError(t *testing.T, habitsCli api.HabitsClient, freq *int32, name string, expectedErrCode codes.Code) {
@@ -113,4 +134,19 @@ func addHabitWithError(t *testing.T, habitsCli api.HabitsClient, freq *int32, na
 		WeeklyFrequency: freq,
 	})
 	assert.Equal(t, expectedErrCode, status.Code(err))
+}
+
+func tickHabit(t *testing.T, habitsCli api.HabitsClient, id string) {
+	_, err := habitsCli.TickHabit(context.Background(), &api.TickHabitRequest{
+		HabitId: id,
+	})
+	require.NoError(t, err)
+}
+
+func getHabitStatusMatchesNoTimestamp(t *testing.T, habitsCli api.HabitsClient, id string, expected *api.GetHabitStatusResponse) {
+	h, err := habitsCli.GetHabitStatus(context.Background(), &api.GetHabitStatusRequest{HabitId: id})
+	require.NoError(t, err)
+
+	assert.Equal(t, expected.Habit, h.Habit)
+	assert.Equal(t, expected.TicksCount, h.TicksCount)
 }

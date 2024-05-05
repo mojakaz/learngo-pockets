@@ -19,9 +19,10 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Habits_CreateHabit_FullMethodName = "/habits.Habits/CreateHabit"
-	Habits_ListHabits_FullMethodName  = "/habits.Habits/ListHabits"
-	Habits_TickHabit_FullMethodName   = "/habits.Habits/TickHabit"
+	Habits_CreateHabit_FullMethodName    = "/habits.Habits/CreateHabit"
+	Habits_ListHabits_FullMethodName     = "/habits.Habits/ListHabits"
+	Habits_TickHabit_FullMethodName      = "/habits.Habits/TickHabit"
+	Habits_GetHabitStatus_FullMethodName = "/habits.Habits/GetHabitStatus"
 )
 
 // HabitsClient is the client API for Habits service.
@@ -34,6 +35,8 @@ type HabitsClient interface {
 	ListHabits(ctx context.Context, in *ListHabitsRequest, opts ...grpc.CallOption) (*ListHabitsResponse, error)
 	// TickHabit is the endpoint to tick a habit.
 	TickHabit(ctx context.Context, in *TickHabitRequest, opts ...grpc.CallOption) (*TickHabitResponse, error)
+	// GetHabitStatus is the endpoint to retrieve the status of ticks of a habit.
+	GetHabitStatus(ctx context.Context, in *GetHabitStatusRequest, opts ...grpc.CallOption) (*GetHabitStatusResponse, error)
 }
 
 type habitsClient struct {
@@ -71,6 +74,15 @@ func (c *habitsClient) TickHabit(ctx context.Context, in *TickHabitRequest, opts
 	return out, nil
 }
 
+func (c *habitsClient) GetHabitStatus(ctx context.Context, in *GetHabitStatusRequest, opts ...grpc.CallOption) (*GetHabitStatusResponse, error) {
+	out := new(GetHabitStatusResponse)
+	err := c.cc.Invoke(ctx, Habits_GetHabitStatus_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // HabitsServer is the server API for Habits service.
 // All implementations must embed UnimplementedHabitsServer
 // for forward compatibility
@@ -81,6 +93,8 @@ type HabitsServer interface {
 	ListHabits(context.Context, *ListHabitsRequest) (*ListHabitsResponse, error)
 	// TickHabit is the endpoint to tick a habit.
 	TickHabit(context.Context, *TickHabitRequest) (*TickHabitResponse, error)
+	// GetHabitStatus is the endpoint to retrieve the status of ticks of a habit.
+	GetHabitStatus(context.Context, *GetHabitStatusRequest) (*GetHabitStatusResponse, error)
 	mustEmbedUnimplementedHabitsServer()
 }
 
@@ -96,6 +110,9 @@ func (UnimplementedHabitsServer) ListHabits(context.Context, *ListHabitsRequest)
 }
 func (UnimplementedHabitsServer) TickHabit(context.Context, *TickHabitRequest) (*TickHabitResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method TickHabit not implemented")
+}
+func (UnimplementedHabitsServer) GetHabitStatus(context.Context, *GetHabitStatusRequest) (*GetHabitStatusResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetHabitStatus not implemented")
 }
 func (UnimplementedHabitsServer) mustEmbedUnimplementedHabitsServer() {}
 
@@ -164,6 +181,24 @@ func _Habits_TickHabit_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Habits_GetHabitStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetHabitStatusRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(HabitsServer).GetHabitStatus(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Habits_GetHabitStatus_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(HabitsServer).GetHabitStatus(ctx, req.(*GetHabitStatusRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Habits_ServiceDesc is the grpc.ServiceDesc for Habits service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -182,6 +217,10 @@ var Habits_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "TickHabit",
 			Handler:    _Habits_TickHabit_Handler,
+		},
+		{
+			MethodName: "GetHabitStatus",
+			Handler:    _Habits_GetHabitStatus_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
